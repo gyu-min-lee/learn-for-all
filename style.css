@@ -1,0 +1,268 @@
+/* =============================================
+   Learn for All — 스타일
+   ============================================= */
+
+:root {
+  --teal:      #00C9A7;
+  --teal-dark: #00A88A;
+  --coral:     #FF6B6B;
+  --amber:     #FFD93D;
+  --navy:      #0A1628;
+  --text:      #E8F0FE;
+  --text-dim:  #7B9DB8;
+  --card:      rgba(255,255,255,0.05);
+  --border:    rgba(255,255,255,0.08);
+  --r-sm:  8px;
+  --r-md: 14px;
+  --r-lg: 18px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Noto Sans KR', sans-serif;
+  background: var(--navy);
+  color: var(--text);
+  min-height: 100vh;
+  line-height: 1.6;
+}
+
+/* 배경 그라디언트 */
+.bg {
+  position: fixed; inset: 0;
+  pointer-events: none; z-index: 0;
+}
+.bg::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 10%, rgba(0,201,167,.12) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 80% at 80% 90%, rgba(255,107,107,.08) 0%, transparent 60%);
+}
+
+/* 레이아웃 */
+.wrapper {
+  position: relative; z-index: 1;
+  max-width: 900px; margin: 0 auto;
+  padding: 32px 20px 80px;
+}
+
+/* 헤더 */
+header { margin-bottom: 40px; }
+.logo-row { display: flex; align-items: center; gap: 14px; margin-bottom: 8px; }
+.logo-mark {
+  width: 44px; height: 44px; border-radius: 12px; flex-shrink: 0;
+  background: linear-gradient(135deg, var(--teal), var(--teal-dark));
+  display: grid; place-items: center; font-size: 22px;
+}
+.logo-text { font-size: 24px; font-weight: 700; letter-spacing: -.5px; }
+.logo-text span { color: var(--teal); }
+.tagline { font-size: 13px; color: var(--text-dim); margin-left: 58px; }
+
+/* 공통 카드 */
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  padding: 16px 20px;
+  margin-bottom: 14px;
+}
+
+/* 학교 검색 */
+.search-row { display: flex; gap: 8px; margin-top: 8px; }
+
+.search-input {
+  flex: 1;
+  background: rgba(255,255,255,.06);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  padding: 9px 14px;
+  color: var(--text); font-size: 13px; font-family: inherit;
+  outline: none; transition: border-color .2s;
+}
+.search-input:focus { border-color: var(--teal); }
+.search-input::placeholder { color: var(--text-dim); }
+
+.btn-search {
+  background: var(--teal); border: none;
+  border-radius: var(--r-sm); padding: 9px 18px;
+  color: #fff; font-size: 13px; font-weight: 600;
+  font-family: inherit; cursor: pointer; transition: opacity .2s;
+  white-space: nowrap;
+}
+.btn-search:hover:not(:disabled) { opacity: .85; }
+.btn-search:disabled { opacity: .5; cursor: not-allowed; }
+
+/* 학교 결과 목록 */
+.school-pills { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+
+.school-pill {
+  padding: 5px 12px; border-radius: 20px;
+  font-size: 12px; cursor: pointer; font-family: inherit;
+  border: 1px solid var(--border);
+  background: transparent; color: var(--text-dim);
+  transition: all .18s;
+}
+.school-pill:hover  { border-color: var(--teal); color: var(--teal); }
+.school-pill.active { background: var(--teal); border-color: var(--teal); color: #fff; }
+
+/* NEIS 일정 바 */
+.neis-bar {
+  background: rgba(255,217,61,.08);
+  border: 1px solid rgba(255,217,61,.2);
+  border-radius: var(--r-sm);
+  padding: 10px 14px;
+  display: flex; align-items: center; gap: 10px;
+  margin-top: 6px;
+}
+.neis-bar .icon { font-size: 15px; }
+.neis-bar .text { font-size: 13px; color: var(--amber); font-weight: 500; }
+
+/* 설정 (언어/학년) */
+.settings { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 24px; }
+
+.setting-title {
+  font-size: 11px; font-weight: 600; letter-spacing: .07em;
+  text-transform: uppercase; color: var(--text-dim); margin-bottom: 12px;
+}
+.pills { display: flex; flex-wrap: wrap; gap: 7px; }
+
+.pill {
+  padding: 5px 13px; border-radius: 20px;
+  font-size: 12px; cursor: pointer; font-family: inherit;
+  border: 1px solid var(--border);
+  background: transparent; color: var(--text-dim);
+  transition: all .18s;
+}
+.pill:hover { border-color: var(--teal); color: var(--teal); }
+.pill.on { background: var(--teal); border-color: var(--teal); color: #fff; font-weight: 600; }
+
+/* 이미지 업로드 */
+.upload {
+  background: var(--card);
+  border: 2px dashed var(--border);
+  border-radius: var(--r-lg);
+  padding: 40px 24px; text-align: center;
+  cursor: pointer; transition: all .25s;
+  margin-bottom: 20px; position: relative;
+  min-height: 160px;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+}
+.upload:hover, .upload.drag {
+  border-color: var(--teal);
+  background: rgba(0,201,167,.04);
+}
+.upload input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+.upload-icon { font-size: 40px; margin-bottom: 12px; }
+.upload h3 { font-size: 16px; font-weight: 600; margin-bottom: 6px; }
+.upload p { font-size: 13px; color: var(--text-dim); }
+#preview {
+  max-width: 100%; max-height: 260px;
+  border-radius: 10px; display: none; margin-bottom: 14px;
+}
+
+/* 분석 버튼 */
+.btn-analyze {
+  width: 100%; padding: 16px; border-radius: var(--r-md);
+  background: linear-gradient(135deg, var(--teal), var(--teal-dark));
+  color: #fff; font-size: 15px; font-weight: 700;
+  border: none; cursor: pointer; font-family: inherit;
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  margin-bottom: 36px; transition: all .25s;
+}
+.btn-analyze:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(0,201,167,.3);
+}
+.btn-analyze:disabled { opacity: .45; cursor: not-allowed; transform: none; }
+
+.spinner {
+  width: 18px; height: 18px;
+  border: 2px solid rgba(255,255,255,.3);
+  border-top-color: #fff; border-radius: 50%;
+  animation: spin .75s linear infinite;
+  display: none;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* 결과 카드 */
+.results { display: none; flex-direction: column; gap: 18px; }
+
+.rcard {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--r-lg); overflow: hidden;
+  animation: slideUp .4s ease both;
+}
+.rcard:nth-child(2) { animation-delay: .08s; }
+.rcard:nth-child(3) { animation-delay: .16s; }
+.rcard:nth-child(4) { animation-delay: .24s; }
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.rhead {
+  padding: 14px 20px;
+  display: flex; align-items: center; gap: 10px;
+  border-bottom: 1px solid var(--border);
+}
+.ricon { font-size: 18px; }
+.rtitle { font-size: 13px; font-weight: 600; }
+.rbadge {
+  margin-left: auto; font-size: 11px; font-weight: 600;
+  padding: 3px 10px; border-radius: 20px;
+}
+.badge-teal { background: rgba(0,201,167,.15); color: var(--teal); border: 1px solid rgba(0,201,167,.25); }
+.badge-amber { background: rgba(255,217,61,.15); color: var(--amber); border: 1px solid rgba(255,217,61,.25); }
+
+.rbody { padding: 20px; font-size: 14px; line-height: 1.85; }
+
+.label {
+  font-size: 11px; font-weight: 600;
+  letter-spacing: .07em; text-transform: uppercase;
+  color: var(--text-dim); margin-bottom: 7px;
+}
+.section { margin-bottom: 18px; }
+.section:last-child { margin-bottom: 0; }
+
+.ocr-text {
+  font-family: monospace; font-size: 13px; color: var(--text-dim);
+  background: rgba(255,255,255,.04);
+  border-radius: var(--r-sm); padding: 12px 14px; line-height: 1.7;
+}
+
+.urgency { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+.udot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+.udot.high { background: var(--coral); box-shadow: 0 0 8px var(--coral); }
+.udot.mid  { background: var(--amber); }
+.udot.low  { background: var(--teal); }
+.utext { font-size: 13px; color: var(--text-dim); }
+
+.foreign { color: var(--teal); font-size: 15px; line-height: 1.9; }
+
+.script {
+  background: rgba(255,255,255,.04);
+  border-left: 3px solid var(--amber);
+  border-radius: 0 10px 10px 0;
+  padding: 14px 16px;
+}
+.script .who { font-size: 11px; color: var(--amber); font-weight: 600; margin-bottom: 5px; }
+
+.quiz {
+  background: rgba(255,107,107,.07);
+  border: 1px solid rgba(255,107,107,.18);
+  border-radius: 10px; padding: 14px 16px;
+}
+.quiz .qlabel { font-size: 12px; color: var(--text-dim); margin-bottom: 6px; }
+.quiz .qtext { font-size: 15px; font-weight: 500; }
+.hint { margin-top: 10px; font-size: 13px; color: var(--text-dim); }
+
+/* 상태 메시지 */
+.empty-msg, .loading-msg { font-size: 12px; color: var(--text-dim); }
+.error-msg { font-size: 12px; color: var(--coral); }
+
+@media (max-width: 600px) {
+  .settings { grid-template-columns: 1fr; }
+}

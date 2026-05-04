@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Learn for All — AI 학습 도우미</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="bg"></div>
+
+<div class="wrapper">
+
+  <!-- 헤더 -->
+  <header>
+    <div class="logo-row">
+      <div class="logo-mark">📚</div>
+      <div class="logo-text">Learn <span>for</span> All</div>
+    </div>
+    <p class="tagline">다문화 가정을 위한 AI 교육 도우미 — 교과서·알림장 한 장으로 가족이 함께 배웁니다</p>
+  </header>
+
+  <!-- 학교 검색 -->
+  <section class="card" aria-label="학교 검색">
+    <div class="setting-title">🏫 학교 검색 (NEIS 실시간 연동)</div>
+    <div class="search-row">
+      <input
+        type="text"
+        id="schoolName"
+        class="search-input"
+        placeholder="학교명 입력 (예: 서울초등학교)"
+        aria-label="학교명"
+      />
+      <button class="btn-search" type="button">검색</button>
+    </div>
+
+    <div id="schoolResults" style="display:none">
+      <div class="school-pills" id="schoolList"></div>
+    </div>
+
+    <div id="selectedSchool" style="display:none; margin-top:10px">
+      <div class="neis-bar">
+        <span class="icon">🏫</span>
+        <span class="text" id="selectedSchoolName">—</span>
+      </div>
+      <div id="scheduleList"></div>
+    </div>
+  </section>
+
+  <!-- 언어 / 학년 설정 -->
+  <div class="settings">
+    <div class="card" style="margin-bottom:0">
+      <div class="setting-title">🌏 부모 언어</div>
+      <div class="pills" id="langGroup" role="group" aria-label="부모 언어 선택">
+        <button class="pill on" data-val="베트남어" type="button">🇻🇳 베트남어</button>
+        <button class="pill" data-val="중국어"    type="button">🇨🇳 중국어</button>
+        <button class="pill" data-val="필리핀어"  type="button">🇵🇭 필리핀어</button>
+        <button class="pill" data-val="태국어"    type="button">🇹🇭 태국어</button>
+        <button class="pill" data-val="일본어"    type="button">🇯🇵 일본어</button>
+      </div>
+    </div>
+    <div class="card" style="margin-bottom:0">
+      <div class="setting-title">🎒 학년</div>
+      <div class="pills" id="gradeGroup" role="group" aria-label="학년 선택">
+        <button class="pill"    data-val="초등 1~2학년" type="button">초1~2</button>
+        <button class="pill on" data-val="초등 3~4학년" type="button">초3~4</button>
+        <button class="pill"    data-val="초등 5~6학년" type="button">초5~6</button>
+        <button class="pill"    data-val="중학교 1~3학년" type="button">중학교</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 이미지 업로드 -->
+  <div class="upload" id="uploadZone" role="button" aria-label="이미지 업로드">
+    <input type="file" id="fileInput" accept="image/*" aria-label="파일 선택" />
+    <img id="preview" alt="업로드된 이미지 미리보기" />
+    <div id="placeholder">
+      <div class="upload-icon">📷</div>
+      <h3>교과서 또는 알림장 사진 업로드</h3>
+      <p>클릭하거나 드래그해서 올려주세요 · JPG, PNG 지원</p>
+    </div>
+  </div>
+
+  <!-- 분석 버튼 -->
+  <button class="btn-analyze" id="analyzeBtn" type="button">
+    <div class="spinner" id="spinner" aria-hidden="true"></div>
+    <span id="btnTxt">✨ AI 분석 시작하기</span>
+  </button>
+
+  <!-- 결과 -->
+  <div class="results" id="results" aria-live="polite">
+
+    <article class="rcard">
+      <div class="rhead">
+        <span class="ricon">🔍</span>
+        <span class="rtitle">인식된 텍스트 + 교육과정 연계</span>
+        <span class="rbadge badge-teal">NEIS 연동</span>
+      </div>
+      <div class="rbody">
+        <div class="section">
+          <div class="label">OCR 인식 결과</div>
+          <div class="ocr-text" id="rOcr">—</div>
+        </div>
+        <div id="rNeis"></div>
+      </div>
+    </article>
+
+    <article class="rcard">
+      <div class="rhead">
+        <span class="ricon">🧒</span>
+        <span class="rtitle">학생용 맞춤 해설</span>
+        <span class="rbadge badge-teal" id="rGradeTag">초3~4 수준</span>
+      </div>
+      <div class="rbody" id="rStudent">—</div>
+    </article>
+
+    <article class="rcard">
+      <div class="rhead">
+        <span class="ricon">👨‍👩‍👧</span>
+        <span class="rtitle">부모용 학습 가이드</span>
+        <span class="rbadge badge-teal" id="rLangTag">베트남어</span>
+      </div>
+      <div class="rbody" id="rParent">—</div>
+    </article>
+
+    <article class="rcard">
+      <div class="rhead">
+        <span class="ricon">🎯</span>
+        <span class="rtitle">오늘의 가족 미션 + 역할 역전</span>
+        <span class="rbadge badge-amber">10분 활동</span>
+      </div>
+      <div class="rbody" id="rMission">—</div>
+    </article>
+
+  </div>
+</div>
+
+<!-- ES6 Module 로딩 -->
+<script type="module" src="js/app.js"></script>
+
+</body>
+</html>
