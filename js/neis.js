@@ -3,7 +3,7 @@
 // =============================================
 
 import { CONFIG } from './config.js';
-import { NEIS_MOCK } from './ai.js';
+import { NEIS_MOCK } from './mock.js';
 
 // 이번 달 from/to 날짜 계산
 function getMonthRange() {
